@@ -52,7 +52,11 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  const res = (value1 + value2) / 2;
+  if (res === Infinity) {
+    return Number.MAX_VALUE;
+  }
+  return res;
 }
 
 /**
@@ -109,8 +113,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const vectorModuleA = Math.sqrt(x1 ** 2 + y1 ** 2);
+  const vectorModuleB = Math.sqrt(x2 ** 2 + y2 ** 2);
+  const cosA = (x1 * x2 + y1 * y2) / (vectorModuleA * vectorModuleB);
+  return Math.acos(cosA);
 }
 
 /**
@@ -230,8 +237,9 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  const res = typeof parseInt(value, 10) === 'number' ? +value : def;
+  return Number.isNaN(res) ? def : res;
 }
 
 module.exports = {
